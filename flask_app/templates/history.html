@@ -1,0 +1,49 @@
+{% extends "header.html" %}
+{% block content %}
+
+<div class="mt-5 mb-5 row">
+
+  {% if error %}
+
+  <div class="alert alert-danger" role="alert">
+    <span>
+      {{ error }} <a class="link-secondary" href="{{ url_for('weather.index') }}">Return Home.</a>
+    </span>
+  </div>
+
+  {% else %}
+
+  <div class="col justify-content-center">
+
+    <div class="d-flex justify-content-between">
+      <p class="fs-3 text-secondary">Weather History for <span class="text-body-emphasis">{{ history.location.name }}, {{ history.location.region }}</span></p>
+      <a type="button" class="btn btn-outline-primary mb-3" href="{{ url_for('weather.forecast', location=location_query) }}">Return to Current Forecast</a>
+    </div>
+
+    <div class="row border-top border-3 pt-4">
+
+      {% for hd in history.forecast.forecastday %}
+      <div class="col text-center {{ 'border-end border-2' if not loop.last }}">
+        <div class="d-flex justify-content-around">
+          <p class="fs-4 text-body">Lo:
+            {{ hd.day.mintemp_f }}&deg;
+          </p>
+          <p class="fs-4 text-body">Hi:
+            {{ hd.day.maxtemp_f }}&deg;
+          </p>
+        </div>
+        <p class="fs-5 text-secondary">
+          {{ hd.date }}
+        </p>
+      </div>
+      {% endfor %}
+
+    </div>
+
+  </div>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "header.html" %}
+{% block content %}
+
+<div class="d-flex flex-column justify-content-center mt-5 mb-5">
+
+  <h1 class="mb-3">Search Results</h1>
+
+  {% if error %}
+  <div class="alert alert-danger" role="alert">
+    <span>
+      {{ error }}
+    </span>
+  </div>
+  {% endif %}
+
+  {% for loc in locations %}
+  <div class="w-100 border border-dark-subtle border-2 rounded px-4 py-3 my-2 row">
+    <p class="fs-3 m-0 col-5">
+      {{ loc.city }}, {{loc.regionCode}}
+    </p>
+    <p class="fs-3 m-0 col-5">
+      {{ loc.country }}
+    </p>
+    <a type="button" class="btn btn-outline-primary col" href="{{ url_for('weather.forecast', location=loc.city + ',' + loc.regionCode + ',' + loc.countryCode) }}">View</a>
+  </div>
+  {% endfor %}
+
+</div>
+
+
+{% endblock %}
